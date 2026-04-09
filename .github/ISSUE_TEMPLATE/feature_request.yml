@@ -1,0 +1,67 @@
+name: Demande de fonctionnalité
+description: Proposer une nouvelle fonctionnalité ou amélioration
+title: "[FEAT] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Merci pour ta proposition ! Décris ta demande avec le plus de précision possible.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problème ou besoin
+      description: Quel problème cette fonctionnalité résoudrait-elle ?
+      placeholder: "Ex : Il n'est pas possible de filtrer les biens par rendement locatif minimum."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Solution proposée
+      description: Décris ce que tu voudrais voir implémenté.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives envisagées
+      description: Y a-t-il d'autres approches que tu as considérées ?
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Composant concerné
+      options:
+        - Notebook EDA
+        - Web Scraping
+        - Pipeline ETL
+        - Base de données DuckDB / SQLite
+        - Intégration Supabase
+        - API Données Foncières
+        - Application Streamlit
+        - Visualisation / Carte interactive
+        - CI/CD
+        - Autre
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priorité estimée
+      options:
+        - Faible
+        - Moyenne
+        - Haute
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Contexte supplémentaire
+      description: Captures d'écran, références, exemples similaires, etc.

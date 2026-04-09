@@ -1,0 +1,110 @@
+name: CI — Lint & Tests
+
+on:
+  push:
+    branches: ["main", "features", "features/*", "fix/*"]
+    paths:
+      - "**.py"
+      - "**.ipynb"
+      - "requirements*.txt"
+      - ".pycodestyle"
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "**.py"
+      - "**.ipynb"
+      - "requirements*.txt"
+      - ".pycodestyle"
+
+jobs:
+  lint-and-test:
+    name: Python ${{ matrix.python-version }} — Lint & Tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.13"]
+
+    steps:
+      # ------------------------------------------------------------------
+      # 1. Récupérer le code
+      # ------------------------------------------------------------------
+      - name: Checkout du dépôt
+        uses: actions/checkout@v4
+
+      # ------------------------------------------------------------------
+      # 2. Installer Python
+      # ------------------------------------------------------------------
+      - name: Configurer Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"
+
+      # ------------------------------------------------------------------
+      # 3. Installer les dépendances
+      # ------------------------------------------------------------------
+      - name: Installer les dépendances du pipeline
+        run: pip install -r requirements.txt
+
+      - name: Installer les dépendances de l'application Streamlit
+        run: pip install -r Streamlit-App/requirements.txt
+
+      - name: Installer les outils de lint
+        run: pip install -r requirements-lint.txt
+
+      - name: Installer nbqa (lint des notebooks Jupyter)
+        run: pip install nbqa
+
+      - name: Installer pytest
+        run: pip install pytest pytest-cov
+
+      # ------------------------------------------------------------------
+      # 4. Linting PEP8 — pycodestyle (tout le repo)
+      # ------------------------------------------------------------------
+      - name: Vérification PEP8 (pycodestyle) — tout le repo
+        run: python tests/check_pep8.py
+
+      # ------------------------------------------------------------------
+      # 5. Linting PEP8 — pycodestyle via nbqa (notebooks .ipynb)
+      # ------------------------------------------------------------------
+      - name: Vérification PEP8 (nbqa + pycodestyle) — notebooks .ipynb
+        run: |
+          find . -name "*.ipynb" \
+            -not -path "./.git/*" \
+            -not -path "./venv/*" \
+            -not -path "./.venv/*" | \
+          xargs -r nbqa pycodestyle --max-line-length=79
+
+      # ------------------------------------------------------------------
+      # 5. Erreurs logiques — flake8 (syntaxe, imports non définis)
+      # ------------------------------------------------------------------
+      - name: Vérification erreurs logiques (flake8) — tout le repo
+        run: |
+          flake8 . --select=E9,F63,F7,F82 --show-source \
+            --exclude=.git,__pycache__,venv,.venv,build,dist,.eggs
+
+      # ------------------------------------------------------------------
+      # 6. Tests unitaires — pytest
+      # ------------------------------------------------------------------
+      - name: Exécution des tests unitaires (pytest)
+        run: |
+          pytest tests/ \
+            --verbose \
+            --tb=short \
+            --cov=Streamlit-App/modules \
+            --cov=pipeline \
+            --cov-report=term-missing \
+            --cov-report=xml:coverage.xml
+
+      # ------------------------------------------------------------------
+      # 7. Publication du rapport de couverture (optionnel)
+      # ------------------------------------------------------------------
+      - name: Upload du rapport de couverture
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-report
+          path: coverage.xml
+          retention-days: 7

@@ -1,0 +1,78 @@
+name: Rapport de bug
+description: Signaler un comportement inattendu ou une erreur
+title: "[BUG] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Merci de signaler ce bug ! Remplis le formulaire ci-dessous avec le plus de détails possible.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description du bug
+      description: Décris clairement ce qui se passe.
+      placeholder: "Ex : Le calcul du taux d'occupation retourne des valeurs négatives pour Bordeaux."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Étapes pour reproduire
+      description: Comment reproduire le bug ?
+      placeholder: |
+        1. Lancer le script de scraping
+        2. Observer l'erreur dans les logs
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Comportement attendu
+      description: Que devrait-il se passer normalement ?
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Captures d'écran ou logs
+      description: Ajouter toute capture ou message d'erreur utile.
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Composant concerné
+      options:
+        - Notebook EDA
+        - Web Scraping
+        - Pipeline ETL
+        - Base de données DuckDB / SQLite
+        - Intégration Supabase
+        - API Données Foncières
+        - Application Streamlit
+        - CI/CD
+        - Autre
+    validations:
+      required: true
+
+  - type: input
+    id: python_version
+    attributes:
+      label: Version Python
+      placeholder: "Ex : 3.13.1"
+
+  - type: input
+    id: os
+    attributes:
+      label: Système d'exploitation
+      placeholder: "Ex : macOS 15, Ubuntu 24.04, Windows 11"
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Contexte supplémentaire
+      description: Toute autre information utile.

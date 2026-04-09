@@ -1,0 +1,10 @@
+title: Airbnb Analytics France
+description: Documentation du projet d'analyse immobilière basée sur les données Inside Airbnb et l'API Données Foncières
+remote_theme: pages-themes/cayman@v0.2.0
+plugins:
+  - jekyll-remote-theme
+
+# Navigation
+header_pages:
+  - index.md
+  - documentation.md

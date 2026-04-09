@@ -13,7 +13,7 @@
   - [Étape 2 — Web Scraping & Base de données SQL](#étape-2--web-scraping--base-de-données-sql)
   - [Étape 3 — Analyse avec DuckDB & Tables agrégées](#étape-3--analyse-avec-duckdb--tables-agrégées)
   - [Étape 4 — Supabase & Déploiement de la base](#étape-4--supabase--déploiement-de-la-base)
-  - [Étape 5 — API Pappers Immobilier](#étape-5--api-pappers-immobilier)
+  - [Étape 5 — API Données Foncières (data.gouv.fr)](#étape-5--api-données-foncières-datagouvfr)
   - [Étape 6 — Application Streamlit](#étape-6--application-streamlit)
 - [CI/CD & Documentation technique](#cicd--documentation-technique)
 - [Environnement recommandé](#environnement-recommandé)
@@ -24,7 +24,7 @@
 
 ## Vue d'ensemble
 
-Ce projet vise à analyser les données **Inside Airbnb** pour la France, à les enrichir de données immobilières via l'**API Pappers**, et à exposer les résultats dans une **application Streamlit**. Il s'agit d'un outil d'aide à la décision pour la sélection de biens immobiliers à fort potentiel locatif court terme.
+Ce projet vise à analyser les données **Inside Airbnb** pour la France, à les enrichir de données immobilières via l'**API Données Foncières** (data.gouv.fr), et à exposer les résultats dans une **application Streamlit**. Il s'agit d'un outil d'aide à la décision pour la sélection de biens immobiliers à fort potentiel locatif court terme.
 
 ---
 
@@ -54,8 +54,8 @@ flowchart TD
         L --> M[API REST\naccessible]
     end
 
-    subgraph ETAPE5["🏢 Étape 5 — API Pappers Immobilier"]
-        N[API Pappers\nImmobilier] --> O[Données immobilières\npar zone géographique]
+    subgraph ETAPE5["🏢 Étape 5 — API Données Foncières"]
+        N[API Données Foncières\ndata.gouv.fr] --> O[Transactions DVF\npar zone géographique]
         O --> P[Comparaison &\nScoring des biens]
     end
 
@@ -145,12 +145,13 @@ flowchart TD
 
 ---
 
-### Étape 5 — API Pappers Immobilier
+### Étape 5 — API Données Foncières (data.gouv.fr)
 
-**Objectif :** Enrichir les données Airbnb avec des données immobilières pour faciliter la sélection de biens.
+**Objectif :** Enrichir les données Airbnb avec des données immobilières open data pour faciliter la sélection de biens.
 
-- Connexion à l'**API Pappers Immobilier**
-- Récupération des prix de vente, transactions et données DVF par zone
+- Connexion à l'**[API Données Foncières](https://www.data.gouv.fr/dataservices/api-donnees-foncieres)** (Cerema / DGALN)
+- Récupération des transactions immobilières issues de **DVF+** (Demandes de Valeurs Foncières) par zone géographique
+- Accès aux indicateurs de prix de l'immobilier par commune et quartier depuis 2010
 - Calcul du rendement locatif potentiel (revenus Airbnb estimés / prix d'achat)
 - Scoring et classement des opportunités d'investissement
 
@@ -206,7 +207,7 @@ Airbnb/
 ├── src/                    # Scripts Python (scraping, ETL, API)
 │   ├── scraping/           # Web scraping Airbnb France
 │   ├── etl/                # Transformation et chargement des données
-│   └── api/                # Connexion API Pappers
+│   └── api/                # Connexion API Données Foncières
 ├── sql/                    # Requêtes DuckDB et schémas SQL
 ├── app/                    # Application Streamlit
 ├── tests/                  # Tests unitaires et d'intégration
