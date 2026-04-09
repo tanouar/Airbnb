@@ -13,6 +13,7 @@ Bienvenue sur la documentation du projet **Airbnb Analytics France**, un outil d
 | Page | Description |
 |------|-------------|
 | [Documentation](documentation) | Mise en place de l'environnement, pipeline ETL, conventions CI/CD |
+| [Workflows CI/CD](workflow) | Détail des GitHub Actions : PEP8, tests, résolution d'erreurs |
 
 ## Architecture du projet
 

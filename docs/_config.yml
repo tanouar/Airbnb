@@ -8,3 +8,4 @@ plugins:
 header_pages:
   - index.md
   - documentation.md
+  - workflow.md
