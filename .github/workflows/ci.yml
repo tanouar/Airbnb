@@ -48,9 +48,6 @@ jobs:
       - name: Installer les dépendances du pipeline
         run: pip install -r requirements.txt
 
-      - name: Installer les dépendances de l'application Streamlit
-        run: pip install -r Streamlit-App/requirements.txt
-
       - name: Installer les outils de lint
         run: pip install -r requirements-lint.txt
 
