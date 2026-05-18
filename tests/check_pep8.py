@@ -140,7 +140,7 @@ def main():
     os.chdir(root_dir)
 
     print("="*70)
-    print("🎬 MoviesDB - Vérification PEP8")
+    print("🏠 Airbnb - Vérification PEP8")
     print("="*70)
     print(f"📂 Répertoire racine du projet: {root_dir.absolute()}\n")
 
