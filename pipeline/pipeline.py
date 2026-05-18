@@ -185,7 +185,7 @@ def run_pipeline() -> None:
 
 
 # ─── Traitement des données ──────────────────────────────────────────────────
-# TODO : section réservée au traitement des données (à compléter par la collègue)
+# TODO : section réservée au traitement des données
 #
 # Exemple de signature attendue :
 #
