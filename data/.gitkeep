@@ -1,0 +1,2 @@
+# Les fichiers téléchargés par le pipeline sont ignorés
+# Seul ce fichier est tracké pour conserver le dossier dans git

@@ -1,0 +1,24 @@
+{
+  "villes": [
+    {
+      "nom": "Paris",
+      "slug": "paris",
+      "region": "ile-de-france"
+    },
+    {
+      "nom": "Lyon",
+      "slug": "lyon",
+      "region": "auvergne-rhone-alpes"
+    },
+    {
+      "nom": "Bordeaux",
+      "slug": "bordeaux",
+      "region": "nouvelle-aquitaine"
+    },
+    {
+      "nom": "Pays Basque",
+      "slug": "pays-basque",
+      "region": "pyrenees-atlantiques"
+    }
+  ]
+}
